@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Home</title>
+  <style>
+    textarea {
+      resize: none;
+    }
+
+    /*     outside colour */
+    body {
+      background-color: #2f0270;
+    }
+
+    /*    inside /container color */
+    .box {
+/*       background-color: #FDFEFE;
+      border: 2px solid black; */
+      padding: 20px;
+
+    }
+
+    .eventBox {
+      border: 5px solid #ffc404;
+      border-radius: 10px;
+      background: #683cac;
+      padding: 5px;
+
+      margin-bottom: 10px;
+      display: flex;
+    }
+
+    .nameBox {
+      position: relative;
+      width: fit-content;
+      margin: 0;
+      padding: 7px;
+      font-size: 35px;
+      font-weight: bold;
+
+    }
+
+    p {
+      color:white;
+      padding: 0;
+      margin: 0;
+      font-family: Arial, sans-serif;
+
+    }
+
+    .infoBox {
+      position: relative;
+      width: fit-content;
+      margin: 0;
+      padding: 0;
+      font-size: 17px;
+      padding-left: 7px;
+
+    }
+
+    .tagsBox {
+      position: relative;
+      width: fit-content;
+      background-color: #ffc404;
+      /*   button colour */
+      border: none;
+      color: white;
+      /*   font colour */
+      padding: 5px 5px;
+      /* height, width */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0px 2px;
+      border-radius: 15px;
+    }
+
+    .tagsGroupBox {
+      position: relative;
+      /*       left: 250px;
+      top: -85px; */
+      width: fit-content;
+      margin: 0;
+      padding: 5px 0px 5px 0px;
+      font-size: 20px;
+
+    }
+
+    .descBox {
+      position: relative;
+      /*       left: 250px;
+      top: -72px; */
+      width: fit-content;
+      margin: 0px 0px 10px 0px;
+      padding: 0;
+      font-size: 17px;
+
+    }
+
+    .reqBox {
+      position: relative;
+      /*       left: 250px;
+      top: -63px; */
+      width: fit-content;
+      margin: 0;
+      padding: 0;
+      font-size: 17px;
+
+    }
+
+    .leftBox {
+      position: relative;
+      width: fit-content;
+
+      flex: 1;
+
+    }
+
+    .rightBox {
+      position: relative;
+      width: fit-content;
+      flex: 4;
+    }
+  </style>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js" defer></script>
+
+  <!--  Firebase products -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js" defer></script>
+
+
+  <script type="module">
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import {getDatabase, ref, push, onValue} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g",
+      authDomain: "calendar-7598a.firebaseapp.com",
+      databaseURL: "https://calendar-7598a-default-rtdb.firebaseio.com/",
+      projectId: "calendar-7598a",
+      storageBucket: "calendar-7598a.appspot.com",
+      messagingSenderId: "907200268235",
+      appId: "1:907200268235:web:1fe2f3eaec6d90469e184e",
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Realtime Database and get a reference to the service
+    const database = getDatabase(app);
+    const eventslistref = ref(database, 'EventsList');
+
+    export class Event {
+      constructor(name, start, end, date, loc, desc, req, tags) {
+        this.eventName = name;
+        this.startTime = start;
+        this.endTime = end;
+        this.date = date;
+        this.loc = loc;
+        this.desc = desc;
+        this.req = req;
+        this.tags = tags;
+      }
+    }
+
+    //readEvent
+    let events = [];
+    const chartbox = document.getElementsByClassName('box')[0];
+    console.log(chartbox);
+
+    window.onload = get_Event();
+
+    function get_Event() {
+      // read data to the database
+      onValue(eventslistref, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const childKey = childSnapshot.key;
+          const event = childSnapshot.val();
+          const tags = event.tags.split(',');
+          console.log(tags);
+
+          let itemBox = document.createElement('div');
+          itemBox.className = 'eventBox';
+          let leftBox = document.createElement('div');
+          leftBox.className = 'leftBox';
+          let rightBox = document.createElement('div');
+          rightBox.className = 'rightBox';
+
+          let nameBox = document.createElement('div');
+          nameBox.className = 'nameBox';
+          let infoBox = document.createElement('div');
+          infoBox.className = 'infoBox';
+          let tagsBox = document.createElement('div');
+          tagsBox.className = 'tagsBox';
+          let tagsGroupBox = document.createElement('div');
+          tagsGroupBox.className = 'tagsGroupBox';
+          let descBox = document.createElement('div');
+          descBox.className = 'descBox';
+          let reqBox = document.createElement('div');
+          reqBox.className = 'reqBox';
+
+          let itemP = document.createElement('P');
+          let itemBr = document.createElement('br')
+
+          let nameText = document.createTextNode(event.eventName);
+          let locText = document.createTextNode('Location: ' + event.loc);
+          let dateText = document.createTextNode('Date: ' + event.date);
+          let timeText = document.createTextNode(`Time: ${event.startTime} - ${event.endTime}`);
+          let descText = document.createTextNode(event.desc);
+          let reqText = document.createTextNode('Requirements: ' + event.req);
+
+          //event name
+          itemP.appendChild(nameText);
+          nameBox.appendChild(itemP);
+          leftBox.appendChild(nameBox);
+
+          itemP = document.createElement('P');
+
+          //location
+          itemP.appendChild(locText);
+          infoBox.appendChild(itemP);
+          leftBox.appendChild(infoBox);
+
+          infoBox = document.createElement('div');
+          infoBox.className = 'infoBox';
+          itemP = document.createElement('P');
+
+          //date
+          itemP.appendChild(dateText);
+          infoBox.appendChild(itemP);
+          leftBox.appendChild(infoBox);
+
+          infoBox = document.createElement('div');
+          infoBox.className = 'infoBox';
+          itemP = document.createElement('P');
+
+          //time
+          itemP.appendChild(timeText);
+          infoBox.appendChild(itemP);
+          leftBox.appendChild(infoBox);
+
+          itemBox.appendChild(leftBox);
+
+          itemP = document.createElement('P');
+
+          //tags
+          tags.forEach((tag) => {
+            tagsBox = document.createElement('div');
+            tagsBox.className = 'tagsBox';
+            itemP = document.createElement('P');
+            let tagText = document.createTextNode(tag);
+
+            itemP.appendChild(tagText);
+            tagsBox.appendChild(itemP);
+            tagsGroupBox.appendChild(tagsBox);
+          });
+          rightBox.appendChild(tagsGroupBox);
+
+          //description
+          itemP = document.createElement('P');
+          itemP.appendChild(descText);
+          descBox.appendChild(itemP);
+          rightBox.appendChild(descBox);
+
+
+          itemP = document.createElement('P');
+          itemBox.appendChild(itemP);
+          chartbox.appendChild(itemBox);
+
+          //requirements
+          itemP = document.createElement('P');
+          itemP.appendChild(reqText);
+          reqBox.appendChild(itemP);
+          rightBox.appendChild(reqBox);
+
+          itemBox.appendChild(rightBox);
+
+
+          itemP = document.createElement('P');
+          itemBox.appendChild(itemP);
+          chartbox.appendChild(itemBox);
+
+        });
+      });
+    }
+
+  </script>
+</head>
+
+<body style="text-align: center;">
+  <div class="box">
+  </div>
+  <etc....< /p>
+    <!-- Page Buttons -->
+    <style>
+      .button {
+        background-color: #ffc404;
+        /*   button colour */
+        border: none;
+        color: #7824d4;
+        /*   font colour */
+        padding: 10px 60px;
+        /* height, width */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        /* height, width */
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        border-radius: 15px;
+      }
+
+      .button1:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      .button1 {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+
+</body>
+
+</html>

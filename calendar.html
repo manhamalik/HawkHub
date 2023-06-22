@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calendar</title>
+  <meta charset="utf-8" />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+  <script>
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+  <script>
+
+    $(document).ready(function() {
+      $('#calendar').fullCalendar({
+        googleCalendarApiKey:  'AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g',
+        events: {
+          googleCalendarId: '907200268235-5ud98ihckksh948vq25vphvpv9k1thuq.apps.googleusercontent.com'
+        }
+      });
+    });
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    events: {
+      googleCalendarApiKey: 'AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g',
+      googleCalendarId: '907200268235-5ud98ihckksh948vq25vphvpv9k1thuq.apps.googleusercontent.com',
+      // Additional optional parameters:
+      // timeZone: 'UTC',
+      color: 'yellow',
+      textColor: 'black'
+    }
+  });
+  calendar.render();
+});
+  </script>
+  <style>
+    textarea {
+      resize: none;
+    }
+
+    /*     outside colour */
+    body {
+      background-color: #683cac;
+    }
+
+    /*    inside /container color */
+    .box {
+      background-color: #FDFEFE;
+      border: 2px solid black;
+      padding: 20px;
+    }
+
+    /*     Navigation Bar */
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #2f0270;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+      border-left: 1px solid #bbb;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #111;
+
+    }
+
+    .active {
+      background-color: #683CAC;
+    }
+  </style>
+  <script src="https://apis.google.com/js/api.js"></script>
+
+</head>
+
+<body>
+  <!-- Navigation Bar-->
+  <ul>
+<!--     <li style="float:right"><a href="chat.html">Chat</a></li> -->
+    <li style="float:right"><a class="active" href="calendar.html">Calendar</a></li>
+    <li style="float:right"><a href="createevent.html">Create Event</a></li>
+    <li style="float:right"><a href="map.html">Map</a></li>
+  </ul>
+  <!--   home button -->
+  <div style="position: absolute; top: 0; left: 0; margin:0; padding:0;">
+    <a href="home.html">
+      <img
+        src="https://live.staticflickr.com/65535/52792717672_64df31dc07_c.jpg"
+        style="max-width: 117px;  height: 46.5px">
+    </a>
+  </div>
+  <br>
+  <br>
+  <center>
+    <h1 style="color: white">Calendar</h1>
+    <h4>Reminders</h4>
+<style>
+h4 {
+  color: white;
+}
+</style>
+    <div class="box" style="border-radius: 10px; border: 1px solid black;">
+      <div id="element" />
+        <br>
+      <p1>Google Calendar</p1> 
+        <br> <br> <br>
+      <!--Add buttons to initiate auth sequence and sign out-->
+      <button id="authorize_button" class="button1" onclick="handleAuthClick()">Login</button> <br>
+      <button id="signout_button" class="button1" onclick="handleSignoutClick()">Sign Out</button>
+      <!--        the post event button should lead to main page, add event/attend will add it to your google calendar -->
+
+      <style>
+        .button1 {
+          background-color: #ffc404;
+          /*   button colour */
+          border: none;
+          color: #7824d4;
+          /*   font colour */
+          padding: 10px 60px;
+          /* height, width */
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 14px;
+          margin: 4px 2px;
+          /* height, width */
+          cursor: pointer;
+          -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+          border-radius: 15px;
+        }
+
+        .button1 {
+          font-family: Arial, sans-serif;
+        }
+
+        .button1:hover {
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+      </style>
+    </div>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script type="text/javascript">
+      /* exported gapiLoaded */
+      /* exported gisLoaded */
+      /* exported handleAuthClick */
+      /* exported handleSignoutClick */
+
+      // TODO(developer): Set to client ID and API key from the Developer Console
+      const CLIENT_ID = '907200268235-5ud98ihckksh948vq25vphvpv9k1thuq.apps.googleusercontent.com';
+      const API_KEY = 'AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g';
+
+      // Discovery doc URL for APIs used by the quickstart
+      const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+      let tokenClient;
+      let gapiInited = false;
+      let gisInited = false;
+
+      document.getElementById('authorize_button').style.visibility = 'hidden';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+
+      /**
+       * Callback after api.js is loaded.
+       */
+      function gapiLoaded() {
+        gapi.load('client', initializeGapiClient);
+      }
+
+      /**
+       * Callback after the API client is loaded. Loads the
+       * discovery doc to initialize the API.
+       */
+      async function initializeGapiClient() {
+        await gapi.client.init({
+          apiKey: 'AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g',
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        gapiInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Callback after Google Identity Services are loaded.
+       */
+      function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: '', // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Enables user interaction after all libraries are loaded.
+       */
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+      }
+
+/**
+ *  Sign in the user upon button click.
+ */
+function handleAuthClick() {
+  tokenClient.callback = async (resp) => {
+    if (resp.error !== undefined) {
+      throw (resp);
+    }
+    document.getElementById('signout_button').style.visibility = 'visible';
+    document.getElementById('authorize_button').innerText = 'Refresh';
+
+    // Load the user's events
+    const events = await listUpcomingEvents();
+
+    // Populate the full calendar with the events
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events,
+    });
+    calendar.render();
+  };
+
+  if (gapi.client.getToken() === null) {
+          // Prompt the user to select a Google Account and ask for consent to share their data
+          // when establishing a new session.
+          tokenClient.requestAccessToken({prompt: 'consent'});
+        } else {
+          // Skip display of account chooser and consent dialog for an existing session.
+          tokenClient.requestAccessToken({prompt: ''});
+        }
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick() {
+        const token = gapi.client.getToken();
+        if (token !== null) {
+          google.accounts.oauth2.revoke(token.access_token);
+          gapi.client.setToken('');
+          document.getElementById('content').innerText = '';
+          document.getElementById('authorize_button').innerText = 'Authorize';
+          document.getElementById('signout_button').style.visibility = 'hidden';
+        }
+      }
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      async function listUpcomingEvents() {
+        let response;
+        try {
+          const request = {
+            'calendarId': 'primary',
+            'timeMin': (new Date()).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'maxResults': 10,
+            'orderBy': 'startTime',
+          };
+          response = await gapi.client.calendar.events.list(request);
+        } catch (err) {
+          document.getElementById('content').innerText = err.message;
+          return;
+        }
+
+        const events = response.result.items;
+        if (!events || events.length == 0) {
+          document.getElementById('content').innerText = 'No events found.';
+          return;
+        }
+        // Flatten to string to display
+        const output = events.reduce(
+            (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
+            'Events:\n'); 
+        document.getElementById('content').innerText = output;
+      }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    </div>
+    <p> To view your upcoming events and add planned events to your Google calendar, please click the "Login" button above and sign in to your Google account. </p>
+
+    <style>
+p {
+  color: white;
+}
+</style>
+<!--     <h1 style="color: white"> -->
+    <div id="calendar"></div>
+    <div id="calendar"></div>
+    <div id='calendar'></div>
+</body>
+
+</html>

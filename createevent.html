@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Create Event</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js" defer></script>
+
+  <!--  Firebase products -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js" defer></script>
+
+
+  <script type="module">
+    import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import {getDatabase, ref, push} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g",
+      authDomain: "calendar-7598a.firebaseapp.com",
+      databaseURL: "https://calendar-7598a-default-rtdb.firebaseio.com/",
+      projectId: "calendar-7598a",
+      storageBucket: "calendar-7598a.appspot.com",
+      messagingSenderId: "907200268235",
+      appId: "1:907200268235:web:1fe2f3eaec6d90469e184e",
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Realtime Database and get a reference to the service
+    const database = getDatabase(app);
+    const dbref = ref(database, 'EventsList');
+
+    // function addToDatabase(new_event) {
+    //   database.ref('EventsList').push(new_event);
+    // }
+
+    const confirmPost = document.getElementById("confirmpost");
+    confirmPost.addEventListener("click", () => {
+      // Sign in with Google and handle the result
+      create_Event();
+    });
+    //addEvent
+    function create_Event() {
+      //this is probably not a good thing to do but its the only thing that works
+      class Event {
+        constructor(name, start, end, date, loc, desc, req, tags, contact, image) {
+          this.eventName = name;
+          this.startTime = start;
+          this.endTime = end;
+          this.date = date;
+          this.loc = loc;
+          this.desc = desc;
+          this.req = req;
+          this.tags = tags;
+          this.contact = contact;
+          this.image = image;
+        }
+      }
+
+      var name = document.getElementById("name").value;
+      var loc = document.getElementById("location").value;
+      var date = document.getElementById("date").value;
+      var start = document.getElementById("stime").value;
+      var end = document.getElementById("etime").value;
+      var desc = document.getElementById("edesc").value;
+      var req = document.getElementById("reqs").value;
+      var tags = document.getElementById("tags").value;
+      var contact = document.getElementById("contactinfo").value;
+      var image = document.getElementById("image").value;
+      let new_event = new Event(name, start, end, date, loc, desc, req, tags, contact, image);
+      console.log(new_event);
+
+      // Write data to the database
+      push(dbref, new_event);
+    }
+  </script>
+
+  <style>
+    textarea {
+      resize: none;
+    }
+
+    /*     outside colour */
+    body {
+      background-color: #683cac;
+    }
+
+    /*    inside /container color */
+    .box {
+      background-color: #FDFEFE;
+      border: 2px solid black;
+      padding: 6px 10px;
+    }
+
+    /*     container position */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /*     Navigation Bar */
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #2f0270;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    li {
+      float: left;
+      border-left: 1px solid #bbb;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #2f0270;
+
+    }
+
+    .active {
+      background-color: #683CAC;
+    }
+  </style>
+
+  <!-- Navigation Bar-->
+  <ul>
+    <!--     <li style="float:right"><a href="chat.html">Chat</a></li> -->
+    <li style="float:right"><a href="calendar.html">Calendar</a></li>
+    <li style="float:right"><a class="active" href="createevent.html">Create Event</a></li>
+    <li style="float:right"><a href="map.html">Map</a></li>
+  </ul>
+
+  <!--   home button -->
+  <div style="position: absolute; top: 0; left: 0; margin:0; padding:0;">
+    <a href="home.html">
+      <img
+        src="https://live.staticflickr.com/65535/52792717672_64df31dc07_c.jpg"
+        style="max-width: 117px; height: 46.5px">
+    </a>
+  </div>
+  <br>
+  <br>
+
+<body style="text-align: center;">
+
+  <!--   everything outside container -->
+  <h1 style="color:white;">New Event</h1>
+  <!-- everything inside the box/container -->
+  <div class="container">
+    <div class="box" style="border-radius: 10px; border: 1px solid black; width: 420px">
+      <!-- Box content goes here -->
+      <h1>Event Information</h1>
+      <form action="/action_page.php">
+
+        <!-- box holding location date and times and picture button (for alignment purposes)-->
+        <div class="box"
+          style="border-radius: 10px; border: 1px transparent; margin: auto; width: 400px; padding: 0px; display: flex">
+
+          <!-- box holding name location date and times -->
+          <div class="box"
+            style="width: 200px; border-radius: 10px; border: 1px transparent; margin: 0px -10px; flex:2;">
+            <!-- event name -->
+            <div style="text-align: center;">
+              <label for="name"></label>
+              <input type="text" id="name" name="name" placeholder="Event Name"
+                style="border-radius: 5px; padding: 5px; width:180px; display: block; border-width: thin; margin: 0 auto;">
+            </div> <br>
+
+            <!-- location -->
+            <div style="text-align: center;">
+              <label for="location"></label>
+              <input type="text" id="location" name="location" placeholder="Event Location"
+                style="border-radius: 5px; width:180px; padding: 5px; display: block; border-width: thin; margin: 0 auto;">
+            </div> <br>
+
+            <!-- image -->
+            <!--             <div style="text-align: center;">
+              <label for="image">Image URL:</label>
+              <input type="text" id="image" name="image" placeholder="Insert Image Link"
+                style="border-radius: 5px; width:180px; padding: 5px; display: block; border-width: thin; margin: 0 auto;">
+            </div> <br> -->
+
+            <!-- date -->
+            <div>
+              <label for="date"></label>
+              <input type="text" id="date" name="date" placeholder="Date"
+                style="border-radius: 5px; width:142px; padding: 5px; display: inline-block; border-width: thin;">
+              <input type="submit" value="📅" style="display: inline-block;">
+            </div> <br>
+
+            <!-- start time -->
+            <div style="display: flex;">
+              <label for="Start Time"></label>
+              <input type="text" id="stime" name="stime" placeholder="Start Time 🕒"
+                style="width:83px; height:19px; border-radius: 5px; padding: 5px; flex:2; border-width: thin; margin-right: 5px;">
+
+              <!-- End Time -->
+              <label for="End Time"></label>
+              <input type="text" id="etime" name="etime" placeholder="End Time 🕒"
+                style="width:83px; height:19px; border-radius: 5px; padding: 5px; flex:2; border-width: thin;">
+            </div> <br>
+          </div>
+
+          <!-- box holding picture button -->
+
+          <div class="box" style="flex:2; border: 1px transparent;">
+            <!-- picture button -->
+            <label for="picture-upload" style="cursor: pointer;">
+
+              <img class="button1"
+                src="https://cdn.discordapp.com/attachments/1084978236246741115/1085032113314742302/1200px-Antu_insert-image.png"
+                alt="Button" onclick=openImagePopup() style="width: 150px;">
+
+            </label>
+          </div>
+        </div>
+
+
+        <div style="text-align: center;">
+
+          <!-- Event Description -->
+          <div>
+            <label for="Event Description"></label>
+            <textarea type="text" id="edesc" name="edesc" rows="5" cols="50" placeholder="Type description of event"
+              style="border-radius: 5px; padding: 5px; display: block; border-width: thin; margin: 0 auto;"></textarea><br>
+          </div>
+
+          <!-- requirements box -->
+          <div>
+            <label for="Requirements"></label>
+            <textarea type="text" id="reqs" name="reqs" rows="5" cols="50"
+              placeholder="Type requirements and materials students must bring to event (including cost - if there is one)"
+              style="border-radius: 5px; padding: 5px; display: block; border-width: thin; margin: 0 auto;"></textarea><br>
+          </div>
+
+          <!-- tags box -->
+          <div>
+            <label for="Tags"></label>
+            <textarea type="text" id="tags" name="tags" rows="5" cols="50"
+              placeholder="Add tags (separate tags with commas, e.g: food, outdoor, computer science, etc)"
+              style="border-radius: 5px; padding: 5px; display: block; border-width: thin; margin: 0 auto;"></textarea>
+          </div>
+
+          <!-- Contact Information -->
+          <div>
+            <br>
+            <label for="contactinfo"></label>
+            <textarea type="text" id="contactinfo" name="contactinfo" rows="5" cols="50"
+              placeholder="Add contact information"
+              style="border-radius: 5px; padding: 5px; display: block; border-width: thin; margin: 0 auto;"></textarea>
+          </div>
+        </div><br>
+    </div>
+  </div>
+  <br>
+
+  <!-- Event Buttons -->
+  <style>
+    .button {
+      background-color: #ffc404;
+      /*   button colour */
+      border: none;
+      color: #7824d4;
+      /*   font colour */
+      padding: 10px 60px;
+      /* height, width */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      /* height, width */
+      cursor: pointer;
+      -webkit-transition-duration: 0.4s;
+      transition-duration: 0.4s;
+      border-radius: 15px;
+    }
+
+    .button1:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .button1 {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+
+  <!-- pop up -->
+  <style>
+    .popup {
+      width: 250px;
+      background: #B880F0;
+      border-radius: 10px;
+      border: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0px 10px 10px;
+
+      font-family: Arial, sans-serif;
+      color: white;
+
+      visibility: hidden;
+    }
+
+    .btn {
+      background-color: #ffc404;
+      /*   button colour */
+      border: none;
+      color: white;
+      /*   font colour */
+      width: 80px;
+      padding: 10px 0px;
+      /* height, width */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 15px;
+      font-weight: bold;
+      margin: 4px 2px;
+      /* height, width */
+      cursor: pointer;
+      border-radius: 15px;
+    }
+
+    .btn:hover {
+      box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .open-popup {
+      visibility: visible;
+    }
+  </style>
+
+  <!--       linking the buttons to page -->
+  <a id="cancel-btn" type="submit" class="button button1" onclick="openCancelPopup()">Cancel Event</a>
+  <a type="submit" class="button button1" onclick="openPostPopup()">Post Event</a>
+  <br>
+
+  <!-- cancel pop up -->
+  <div class="popup" id="cancel-popup">
+    <h2>Cancel Post</h2>
+    <p>By clicking confirm, your post will not be published on the feed page. By clicking cancel, you will be
+      brought
+      back to editing and can continue to make changes.</p>
+    <a href="#" class="btn" onclick="closeCancelPopup()">Cancel</a>
+    <a href="home.html" class="btn">Confirm</a>
+  </div>
+
+  <!-- post pop up -->
+  <div class="popup" id="post-popup">
+    <h2>Confirm Post</h2>
+    <p>By clicking confirm, your post will go live on the feed page. By clicking cancel you will be brought back
+      to
+      editing and you can continue to make changes.</p>
+    <a href="#" class="btn" onclick="closePostPopup()">Cancel</a>
+    <a href="home.html" class="btn" id="confirmpost">Confirm</a>
+  </div>
+
+  <div class="popup" id="image-popup" style='padding:10px;'>
+    <div <label for="image">Image URL:</label>
+
+      <input type="text" id="image" name="image" placeholder="Insert Image Link"
+        style="border-radius: 5px; width:180px; padding: 5px; display: block; border-width: thin; margin: 0 auto;">
+      <a href="#" class="btn" onclick="cancelImagePopup()">Cancel</a>
+      <a href="#" class="btn" onclick="cancelImagePopup()">Enter</a>
+    </div>
+  </div>
+
+  <script>
+    let postPopup = document.getElementById("post-popup");
+    let cancelPopup = document.getElementById("cancel-popup");
+
+    function openPostPopup() {
+      postPopup.classList.add("open-popup");
+    }
+
+    function closePostPopup() {
+      postPopup.classList.remove("open-popup");
+    }
+
+    function openCancelPopup() {
+      cancelPopup.classList.add("open-popup");
+    }
+
+    function closeCancelPopup() {
+      cancelPopup.classList.remove("open-popup");
+    }
+
+    let imagePopup = document.getElementById("image-popup");
+
+    function openImagePopup() {
+      imagePopup.classList.add("open-popup");
+    }
+
+    function cancelImagePopup() {
+      imagePopup.classList.remove("open-popup");
+    }
+  </script>
+  </form>
+  <br>
+</body>
+
+</html>
