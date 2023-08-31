@@ -1,6 +1,7 @@
 <html>
 
 <head>
+  <link rel="icon" type="image/png" href="favicon.png">
   <title>Map</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <style>
@@ -10,18 +11,10 @@
       height: auto;
     }
 
-/* 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
- */
     #map {
       height: 2%;
-/*       margin-bottom: 0; */
     }
 
-    /* 
- * Optional: Makes the sample page fill the window. 
- */
     html,
     body {
       height: auto;     
@@ -121,13 +114,11 @@
       width: 345px;
     }
 
-    /*     Go Button */
+    /* Go Button */
     .button {
       background-color: #ffc404;
-      /*   button colour */
       border: none;
       color: #7824d4;
-      /*   font colour */
       padding: 10px 60px;
       /* height, width */
       text-align: center;
@@ -146,7 +137,7 @@
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
-    /*     Navigation Bar */
+    /* Navigation Bar */
     ul {
       list-style-type: none;
       margin: 0;
@@ -179,10 +170,8 @@
 </head>
 
 <body>
-  <!-- outside the box-->
   <!-- Navigation Bar-->
   <ul>
-<!--     <li style="float:right"><a href="chat.html">Chat</a></li> -->
     <li style="float:right"><a href="calendar.html">Calendar</a></li>
     <li style="float:right"><a href="createevent.html">Create Event</a></li>
     <li style="float:right"><a class="active" href="map.html">Map</a></li>
@@ -201,9 +190,7 @@
   <h2 style="color:white; position:relative; left:82%; top:10%; font-size:40px;">Controls</h2>
   <h2 style="color:white; position:relative; left:30%; top:-43%; font-size:40px;">Navigation</h2>
 </div>
-
 <br><br><br>
-
 <div style="display: flex;">
 
   <!-- Inside the map box-->
@@ -220,36 +207,12 @@
     <button type="button" class="button button1" onclick="initMap()" style="width: 100%;">Go</button>
   </div>
 </div>
-
 </div>
-
     <div id="map"></div>
-
-
-
-    <!-- 
-      The `defer` attribute causes the callback to execute after the full HTML
-      document has been parsed. For non-blocking uses, avoiding race conditions,
-      and consistent behavior across browsers, consider loading using Promises.
-      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
-      for more information.
-      -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRX-ZZjmNZxpJJvZnqMt5QTlTjEJ5h0dI&callback=initAutocomplete&libraries=places&v=weekly"
       defer></script>
-    <!--       <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe599thzGpbluz8Ht16GegkKhAHzpKjLY&callback=initMap"
-      async
-      defer
-    ></script> -->
     <script>
-
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
       function initAutocomplete() {
         const map = new google.maps.Map(document.getElementById("map"), {
           center: {lat: 43.473847, lng: -80.527456},
@@ -396,9 +359,7 @@
           }
         });
       }
-
     </script>
   </div>
 </body>
-
 </html>

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="icon" type="image/png" href="favicon.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Home</title>
@@ -9,18 +10,14 @@
     textarea {
       resize: none;
     }
-
-    /*     outside colour */
+    
     body {
       background-color: #2f0270;
     }
 
-    /*    inside /container color */
+    /* inside container */
     .box {
-/*       background-color: #FDFEFE;
-      border: 2px solid black; */
       padding: 20px;
-
     }
 
     .eventBox {
@@ -40,7 +37,6 @@
       padding: 7px;
       font-size: 35px;
       font-weight: bold;
-
     }
 
     p {
@@ -48,7 +44,6 @@
       padding: 0;
       margin: 0;
       font-family: Arial, sans-serif;
-
     }
 
     .infoBox {
@@ -58,7 +53,6 @@
       padding: 0;
       font-size: 17px;
       padding-left: 7px;
-
     }
 
     .tagsBox {
@@ -68,7 +62,6 @@
       /*   button colour */
       border: none;
       color: white;
-      /*   font colour */
       padding: 5px 5px;
       /* height, width */
       text-align: center;
@@ -82,19 +75,14 @@
 
     .tagsGroupBox {
       position: relative;
-      /*       left: 250px;
-      top: -85px; */
       width: fit-content;
       margin: 0;
       padding: 5px 0px 5px 0px;
       font-size: 20px;
-
     }
 
     .descBox {
       position: relative;
-      /*       left: 250px;
-      top: -72px; */
       width: fit-content;
       margin: 0px 0px 10px 0px;
       padding: 0;
@@ -104,8 +92,6 @@
 
     .reqBox {
       position: relative;
-      /*       left: 250px;
-      top: -63px; */
       width: fit-content;
       margin: 0;
       padding: 0;
@@ -116,9 +102,7 @@
     .leftBox {
       position: relative;
       width: fit-content;
-
       flex: 1;
-
     }
 
     .rightBox {
@@ -127,12 +111,11 @@
       flex: 4;
     }
   </style>
-  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js" defer></script>
 
-  <!--  Firebase products -->
+  <!-- Firebase products -->
   <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js" defer></script>
-
 
   <script type="module">
     import {initializeApp} from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
@@ -147,6 +130,7 @@
       messagingSenderId: "907200268235",
       appId: "1:907200268235:web:1fe2f3eaec6d90469e184e",
     };
+    
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
 
@@ -283,11 +267,9 @@
           itemP = document.createElement('P');
           itemBox.appendChild(itemP);
           chartbox.appendChild(itemBox);
-
         });
       });
     }
-
   </script>
 </head>
 
@@ -299,10 +281,8 @@
     <style>
       .button {
         background-color: #ffc404;
-        /*   button colour */
         border: none;
         color: #7824d4;
-        /*   font colour */
         padding: 10px 60px;
         /* height, width */
         text-align: center;

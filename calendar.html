@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="icon" type="image/png" href="favicon.png">
   <title>Calendar</title>
   <meta charset="utf-8" />
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
@@ -28,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     events: {
       googleCalendarApiKey: 'AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g',
       googleCalendarId: '907200268235-5ud98ihckksh948vq25vphvpv9k1thuq.apps.googleusercontent.com',
-      // Additional optional parameters:
-      // timeZone: 'UTC',
       color: 'yellow',
       textColor: 'black'
     }
@@ -42,19 +41,18 @@ document.addEventListener('DOMContentLoaded', function() {
       resize: none;
     }
 
-    /*     outside colour */
     body {
       background-color: #683cac;
     }
 
-    /*    inside /container color */
+    /* inside container */
     .box {
       background-color: #FDFEFE;
       border: 2px solid black;
       padding: 20px;
     }
 
-    /*     Navigation Bar */
+    /* Navigation Bar */
     ul {
       list-style-type: none;
       margin: 0;
@@ -96,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
   <!-- Navigation Bar-->
   <ul>
-<!--     <li style="float:right"><a href="chat.html">Chat</a></li> -->
     <li style="float:right"><a class="active" href="calendar.html">Calendar</a></li>
     <li style="float:right"><a href="createevent.html">Create Event</a></li>
     <li style="float:right"><a href="map.html">Map</a></li>
@@ -127,15 +124,13 @@ h4 {
       <!--Add buttons to initiate auth sequence and sign out-->
       <button id="authorize_button" class="button1" onclick="handleAuthClick()">Login</button> <br>
       <button id="signout_button" class="button1" onclick="handleSignoutClick()">Sign Out</button>
-      <!--        the post event button should lead to main page, add event/attend will add it to your google calendar -->
+      <!-- the post event button should lead to main page, add event/attend will add it to your google calendar -->
 
       <style>
         .button1 {
           background-color: #ffc404;
-          /*   button colour */
           border: none;
           color: #7824d4;
-          /*   font colour */
           padding: 10px 60px;
           /* height, width */
           text-align: center;
@@ -186,17 +181,15 @@ h4 {
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
 
-      /**
-       * Callback after api.js is loaded.
-       */
+       // Callback after api.js is loaded.
       function gapiLoaded() {
         gapi.load('client', initializeGapiClient);
       }
 
-      /**
-       * Callback after the API client is loaded. Loads the
-       * discovery doc to initialize the API.
-       */
+      
+       // Callback after the API client is loaded. Loads the
+       // discovery doc to initialize the API.
+   
       async function initializeGapiClient() {
         await gapi.client.init({
           apiKey: 'AIzaSyA3IKc_6aXEqPiicHgckgrdH6gUxsR4g3g',
@@ -319,7 +312,6 @@ p {
   color: white;
 }
 </style>
-<!--     <h1 style="color: white"> -->
     <div id="calendar"></div>
     <div id="calendar"></div>
     <div id='calendar'></div>

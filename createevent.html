@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="icon" type="image/png" href="favicon.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Create Event</title>
@@ -83,12 +84,11 @@
       resize: none;
     }
 
-    /*     outside colour */
     body {
       background-color: #683cac;
     }
 
-    /*    inside /container color */
+    /*    inside/container */
     .box {
       background-color: #FDFEFE;
       border: 2px solid black;
@@ -140,7 +140,6 @@
 
   <!-- Navigation Bar-->
   <ul>
-    <!--     <li style="float:right"><a href="chat.html">Chat</a></li> -->
     <li style="float:right"><a href="calendar.html">Calendar</a></li>
     <li style="float:right"><a class="active" href="createevent.html">Create Event</a></li>
     <li style="float:right"><a href="map.html">Map</a></li>
@@ -189,13 +188,6 @@
                 style="border-radius: 5px; width:180px; padding: 5px; display: block; border-width: thin; margin: 0 auto;">
             </div> <br>
 
-            <!-- image -->
-            <!--             <div style="text-align: center;">
-              <label for="image">Image URL:</label>
-              <input type="text" id="image" name="image" placeholder="Insert Image Link"
-                style="border-radius: 5px; width:180px; padding: 5px; display: block; border-width: thin; margin: 0 auto;">
-            </div> <br> -->
-
             <!-- date -->
             <div>
               <label for="date"></label>
@@ -218,11 +210,9 @@
           </div>
 
           <!-- box holding picture button -->
-
           <div class="box" style="flex:2; border: 1px transparent;">
             <!-- picture button -->
             <label for="picture-upload" style="cursor: pointer;">
-
               <img class="button1"
                 src="https://cdn.discordapp.com/attachments/1084978236246741115/1085032113314742302/1200px-Antu_insert-image.png"
                 alt="Button" onclick=openImagePopup() style="width: 150px;">
@@ -274,10 +264,8 @@
   <style>
     .button {
       background-color: #ffc404;
-      /*   button colour */
       border: none;
       color: #7824d4;
-      /*   font colour */
       padding: 10px 60px;
       /* height, width */
       text-align: center;
@@ -322,10 +310,8 @@
 
     .btn {
       background-color: #ffc404;
-      /*   button colour */
       border: none;
       color: white;
-      /*   font colour */
       width: 80px;
       padding: 10px 0px;
       /* height, width */
@@ -419,5 +405,4 @@
   </form>
   <br>
 </body>
-
 </html>
